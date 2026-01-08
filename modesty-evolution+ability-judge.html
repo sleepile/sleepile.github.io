@@ -81262,7 +81262,7 @@ _nS('controllers.Local'); _root['controllers']['Local']['standalone'] =
 </script>
 
     <!-- This can be used to insert NetLogo code into this page -->
-    <script type="text/nlogo" id="nlogo-code" data-filename="modesty-evolution+ability-judge.nlogox"><?xml version="1.0" encoding="utf-8" ?>
+    <script type="text/nlogo" id="nlogo-code" data-filename="modesty-evolution+ability-judge2.nlogox"><?xml version="1.0" encoding="utf-8" ?>
 <model version="NetLogo 7.0.0-beta0" snapToGrid="true">
   <code><![CDATA[;; globals defined by input: 
 ;;    [ envy-people-number non-envy-people-number setup-reputation? modest-rate test ]
@@ -81423,7 +81423,13 @@ to profit-modest-envy [partner i-won?]
             ]
 
             ;; if loser( = partner) not envy
-            [ set moral-reputation (moral-reputation + 10)]
+            
+            [ ifelse (strategy =  0) ;; if winner(agent) not modest 
+               [ set ability-reputation (ability-reputation + 5) ]
+               ;;if winner modest
+               [ set moral-reputation (moral-reputation + 5)]
+            ]
+
         ;; update reputation and known-reputation
         set reputation (moral-reputation + ability-reputation)
         set known-reputation ((moral-judge-ratio * moral-reputation) + (ability-judge-ratio * ability-reputation))
@@ -81545,7 +81551,7 @@ end
         <update>plot mean [moral-reputation] of turtles</update>
       </pen>
     </plot>
-    <input x="162" multiline="false" y="377" height="60" variable="tick-range" type="number" width="100">50</input>
+    <input x="162" multiline="false" y="377" height="60" variable="tick-range" type="number" width="100">20</input>
     <input x="34" multiline="false" y="377" height="60" variable="modest-rate" type="number" width="105">0</input>
     <plot x="325" autoPlotX="true" yMax="10" autoPlotY="true" yAxis="group size" y="53" xMin="0" height="220" legend="true" xMax="10" yMin="0" width="325" xAxis="time" display="group size">
       <setup></setup>
@@ -81563,14 +81569,14 @@ end
         <update>plot count turtles </update>
       </pen>
     </plot>
-    <input x="325" multiline="false" y="282" height="60" variable="non-envy-people-number" type="number" width="170">100</input>
-    <input x="497" multiline="false" y="281" height="60" variable="envy-people-number" type="number" width="145">900</input>
+    <input x="325" multiline="false" y="282" height="60" variable="non-envy-people-number" type="number" width="170">500</input>
+    <input x="497" multiline="false" y="281" height="60" variable="envy-people-number" type="number" width="145">500</input>
     <monitor x="432" precision="17" y="346" height="60" fontSize="11" width="100" display="modest-num">count turtles with [strategy = 1]</monitor>
     <monitor x="327" precision="17" y="347" height="60" fontSize="11" width="100">ticks</monitor>
     <monitor x="542" precision="17" y="346" height="60" fontSize="11" width="100" display="non-modest num">count turtles with [strategy = 0]</monitor>
     <input x="483" multiline="false" y="412" height="60" variable="initiate-ability-reputation" type="number" width="170">0</input>
     <input x="317" multiline="false" y="412" height="60" variable="initiate-moral-reputation" type="number" width="165">0</input>
-    <slider x="413" step="1" y="2" max="100" width="155" display="initiate-moral-judge-ratio" height="50" min="0" direction="Horizontal" default="50" variable="initiate-moral-judge-ratio"></slider>
+    <slider x="413" step="1" y="2" max="100" width="155" display="initiate-moral-judge-ratio" height="50" min="0" direction="Horizontal" default="25" variable="initiate-moral-judge-ratio"></slider>
   </widgets>
   <info>## WHAT IS IT?
 
